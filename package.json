@@ -1,0 +1,15 @@
+{
+  "name": "agent-editor-demo",
+  "version": "0.1.0",
+  "description": "Electron + OpenCode Agent 测试：对话执行聊天、创建/删除文件、创建目录等",
+  "main": "main.js",
+  "scripts": {
+    "start": "ELECTRON_DISABLE_SANDBOX=1 ELECTRON_OZONE_PLATFORM_HINT=auto electron ."
+  },
+  "dependencies": {
+    "@opencode-ai/sdk": "^1.2.0"
+  },
+  "devDependencies": {
+    "electron": "^40.6.1"
+  }
+}

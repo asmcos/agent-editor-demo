@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Editor Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1e1e1e;
+      color: #e5e7eb;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #374151;
+      font-weight: 600;
+    }
+    .workspace {
+      padding: 8px 16px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    .log {
+      flex: 1;
+      overflow: auto;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .log .user { color: #93c5fd; margin-bottom: 8px; }
+    .log .assistant { color: #a7f3d0; margin-bottom: 12px; }
+    .log .error { color: #fca5a5; }
+    .log .system { color: #9ca3af; font-size: 12px; }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid #374151;
+    }
+    #input {
+      flex: 1;
+      min-height: 44px;
+      max-height: 120px;
+      padding: 10px 12px;
+      background: #374151;
+      border: 1px solid #4b5563;
+      border-radius: 8px;
+      color: #f3f4f6;
+      font-size: 14px;
+      resize: none;
+    }
+    #input::placeholder { color: #9ca3af; }
+    #send {
+      padding: 10px 20px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #send:hover { background: #2563eb; }
+    #send:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <div class="header">Agent Editor Demo — 对话执行文件操作（OpenCode）</div>
+  <div class="workspace" id="workspace"></div>
+  <div class="log" id="log"></div>
+  <div class="input-row">
+    <textarea id="input" placeholder="输入指令，例如：在 workspace 下创建 hello.txt、列出当前目录、删除某文件…" rows="2"></textarea>
+    <button type="button" id="send">发送</button>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
