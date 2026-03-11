@@ -38,6 +38,28 @@
     .log .assistant { color: #a7f3d0; margin-bottom: 12px; }
     .log .error { color: #fca5a5; }
     .log .system { color: #9ca3af; font-size: 12px; }
+    .log .loading { color: #fcd34d; animation: pulse 0.8s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .editor-section {
+      border-top: 1px solid #374151;
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .editor-section label { font-size: 12px; color: #9ca3af; }
+    #editor {
+      width: 100%;
+      min-height: 120px;
+      padding: 10px 12px;
+      background: #374151;
+      border: 1px solid #4b5563;
+      border-radius: 8px;
+      color: #f3f4f6;
+      font-size: 13px;
+      font-family: inherit;
+      resize: vertical;
+    }
     .input-row {
       display: flex;
       gap: 8px;
@@ -71,9 +93,13 @@
   </style>
 </head>
 <body>
-  <div class="header">Agent Editor Demo — 对话执行文件操作（OpenCode）</div>
+  <div class="header">Agent Editor Demo — 对话执行文件操作（LangChain + Ollama）</div>
   <div class="workspace" id="workspace"></div>
   <div class="log" id="log"></div>
+  <div class="editor-section">
+    <label for="editor">编辑框（Agent 可读取/写入）</label>
+    <textarea id="editor" placeholder="此处内容可被 Agent 读取或更新…"></textarea>
+  </div>
   <div class="input-row">
     <textarea id="input" placeholder="输入指令，例如：在 workspace 下创建 hello.txt、列出当前目录、删除某文件…" rows="2"></textarea>
     <button type="button" id="send">发送</button>

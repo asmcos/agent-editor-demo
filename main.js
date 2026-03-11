@@ -1,9 +1,9 @@
-'use strict';
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
-const fs = require('fs');
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
 const WORKSPACE = path.join(ROOT, 'workspace');
 
@@ -17,8 +17,8 @@ function ensureWorkspace() {
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 700,
+    width: 960,
+    height: 760,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -28,9 +28,9 @@ function createWindow() {
   mainWindow.loadFile('index.html');
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   ensureWorkspace();
-  const { initAgent } = require('./agent.js');
+  const { initAgent } = await import('./agent.js');
   initAgent().then(() => {
     createWindow();
   }).catch((err) => {
@@ -42,7 +42,7 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => app.quit());
 
 ipcMain.handle('agent:workspaceDir', () => WORKSPACE);
-ipcMain.handle('agent:send', async (_, { text, workspaceDir }) => {
-  const { sendToAgent } = require('./agent.js');
-  return sendToAgent(text || '', workspaceDir || WORKSPACE);
+ipcMain.handle('agent:send', async (_, { text, workspaceDir, editorContent }) => {
+  const { sendToAgent } = await import('./agent.js');
+  return sendToAgent(text || '', workspaceDir || WORKSPACE, editorContent);
 });
